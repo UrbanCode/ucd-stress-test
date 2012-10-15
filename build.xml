@@ -214,7 +214,7 @@
         <mkdir dir="${build.test.data.dir}" />
         <mkdir dir="${dist.test.dir}" />
 
-        <junit printsummary="on" haltonfailure="false" fork="yes" showoutput="false" failureproperty="junit.failed">
+        <junit printsummary="on" haltonfailure="false" fork="yes" forkmode="once" showoutput="false" failureproperty="junit.failed">
             <sysproperty key="net.sourceforge.cobertura.datafile" file="${build.dir}/.cobertura.ser" />
             <classpath refid="classpath.test" />
             <formatter type="brief" usefile="false" />
