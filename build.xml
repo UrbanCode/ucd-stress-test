@@ -85,9 +85,7 @@
             target="${target}"
             failonerror="true"
 
-            includeantruntime="false"
-            memoryinitialsize="256m"
-            memorymaximumsize="512m"/>
+            includeantruntime="false"/>
     </presetdef>
     
     <!-- ==================================================================
