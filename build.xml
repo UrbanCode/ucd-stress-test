@@ -118,10 +118,19 @@
     <!-- ==================================================================
          ARTIFACT HANDLING
          ================================================================== -->
+    <condition property="lib.dir.exists">
+        <available file="${lib.dir}" type="dir"/>
+    </condition>
+
+    <target name="resolve-conditional" unless="lib.dir.exists"
+            description="Resolve all dependencies if lib directory does not exist">
+        <antcall target="resolve"/>
+    </target>   
+
     <target name="resolve" unless="resolve.no" 
             description="Resolve all dependencies">
-            <mkdir dir="${lib.dir}"/>
-            <mkdir dir="${lib.test.dir}"/>
+        <mkdir dir="${lib.dir}"/>
+        <mkdir dir="${lib.test.dir}"/>
         <codestation:resolve
             server="anthill3.urbancode.com"
             buildLife="${build.life.id}"
@@ -139,7 +148,7 @@
     <!-- ==================================================================
          COMPILE
          ================================================================== -->
-    <target name="compile-main">
+    <target name="compile-main" depends="resolve-conditional">
         <mkdir dir="${build.main.classes.dir}" />
 
         <javac srcdir="${src.main.java.dir}"
