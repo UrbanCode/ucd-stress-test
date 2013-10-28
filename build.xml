@@ -132,7 +132,6 @@
         <mkdir dir="${lib.dir}"/>
         <mkdir dir="${lib.test.dir}"/>
         <codestation:resolve
-            server="anthill3.urbancode.com"
             buildLife="${build.life.id}"
             xmlFile="dependencies.xml" />
     </target>
