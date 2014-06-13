@@ -241,6 +241,8 @@
             </fileset>
             <report format="frames" todir="${dist.test.dir}" />
         </junitreport>
+
+        <antcall target="cobertura-reports"/>
         
         <fail if="junit.failed"/>
     </target>
@@ -292,13 +294,13 @@
 
     <target name="cobertura-reports" depends="cobertura-report-html, cobertura-report-xml"/>
 
-    <target name="cobertura-report-html" depends="cobertura-report-prepare-directory, cobertura-init-tasks">
+    <target name="cobertura-report-html" depends="cobertura-report-prepare-directory, cobertura-init-tasks" if="use.cobertura">
         <cobertura-report format="html" destdir="${dist.cobertura.dir}" datafile="${build.dir}/.cobertura.ser">
             <fileset dir="${src.main.java.dir}" includes="**/*.java"/>
         </cobertura-report>
     </target>
 
-    <target name="cobertura-report-xml" depends="cobertura-report-prepare-directory, cobertura-init-tasks">
+    <target name="cobertura-report-xml" depends="cobertura-report-prepare-directory, cobertura-init-tasks" if="use.cobertura">
         <cobertura-report format="xml" destdir="${dist.cobertura.dir}" datafile="${build.dir}/.cobertura.ser">
             <fileset dir="${src.main.java.dir}" includes="**/*.java"/>
         </cobertura-report>
