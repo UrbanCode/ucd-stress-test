@@ -12,7 +12,16 @@
          ENVIRONMENTAL DETECTION
          ================================================================== -->
     <condition property="git" value="git.cmd">
-        <os family="windows" />
+        <and>
+            <os family="windows" />
+            <available filepath="${env.Path}" file="git.cmd" type="file"/>
+        </and>
+    </condition>
+    <condition property="git" value="git.exe">
+        <and>
+            <os family="windows" />
+            <available filepath="${env.Path}" file="git.exe" type="file"/>
+        </and>
     </condition>
     <condition property="git" value="git">
         <not>
