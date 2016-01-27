@@ -31,6 +31,69 @@
       </delivery>
     </dependency>
 
+    <dependency>
+      <cs-project name="Apache HttpComponents"/>
+      <criteria stamp="4.3.*" status="success"/>
+      <delivery artifact-set="lib">
+        <directory>lib</directory>
+      </delivery>
+    </dependency>
+
+    <dependency>
+      <ah-project name="HttpComponents-Util" workflow="build workflow [master]"/>
+      <criteria status="success"/>
+      <delivery artifact-set="Library">
+          <directory>lib</directory>
+      </delivery>
+    </dependency>
+
+    <dependency>
+      <cs-project name="Jakarta Commons Logging" />
+      <criteria stamp="1.1" />
+      <delivery artifact-set="Default">
+          <directory>lib</directory>
+      </delivery>
+    </dependency>
+
+    <dependency>
+      <cs-project name="Jakarta Commons Codec"/>
+      <criteria stamp="1.5" />
+      <delivery artifact-set="Default">
+          <directory>lib</directory>
+      </delivery>
+    </dependency>
+
+    <dependency>
+      <cs-project name="Jakarta Commons Lang"/>
+            <criteria status="success"/>
+          <delivery artifact-set="Default">
+          <directory>lib</directory>
+        </delivery>
+    </dependency>
+
+    <dependency>
+      <ah-project name="WebExt-Common" workflow="Build [master]"/>
+      <criteria status="success"/>
+      <delivery artifact-set="Compilation Libraries">
+        <directory>lib</directory>
+      </delivery>
+    </dependency>
+
+    <dependency>
+      <ah-project name="Commons-Util" workflow="build workflow [master]"/>
+      <criteria status="success"/>
+      <delivery artifact-set="Library">
+          <directory>lib</directory>
+      </delivery>
+    </dependency>
+
+    <dependency>
+      <cs-project name="Jettison"/>
+      <criteria status="success"/>
+      <delivery artifact-set="Library">
+        <directory>lib</directory>
+      </delivery>
+    </dependency>
 
     <!-- TEST -->
     <dependency>

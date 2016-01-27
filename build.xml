@@ -188,10 +188,12 @@
                 <attribute name="Implementation-Vendor" value="Urbancode"/>
                 <attribute name="Implementation-Title" value="${project}"/>
                 <attribute name="Implementation-Version" value="${version}"/>
+                <attribute name="Main-Class" value="com.ibm.ucd.ResourceCreationAnMappingUtil"/>
             </manifest>
-          
+
             <fileset dir="${build.main.classes.dir}"/>
             <fileset dir="${src.main.java.dir}" excludes="**/*.java"/>
+        	<zipgroupfileset dir="${lib.dir}" includes="*.jar" />
         </jar>
     </target>
 
