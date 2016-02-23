@@ -1,6 +1,7 @@
 package com.ibm.ucd;
 
 import java.io.IOException;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.util.HashMap;
@@ -23,13 +24,13 @@ import org.codehaus.jettison.json.JSONObject;
 public class DeployClient {
 
     private HttpClient client;
-    private String serverUrl;
+    private URI serverUrl;
     private String allAgentsEndpoint;
     private String componentResourceRolesEndpoint;
     private String nameKey;
     private String idKey;
 
-    public DeployClient(HttpClient client, String serverUrl) {
+    public DeployClient(HttpClient client, URI serverUrl) {
         this.client = client;
         this.serverUrl = serverUrl;
         allAgentsEndpoint = serverUrl + "/rest/agent";
@@ -96,6 +97,15 @@ public class DeployClient {
 
         try {
             client.execute(put);
+            HttpResponse response = client.execute(put);
+            String responseText = EntityUtils.toString(response.getEntity());
+            if (responseText.length() > 500) {
+                responseText = responseText.substring(0, 500);
+            }
+            int statusCode = response.getStatusLine().getStatusCode();
+            if (response.getStatusLine().getStatusCode() != 200) {
+                throw new RuntimeException("Batch Resource creation failed with statuc code" + statusCode);
+            }
         } catch (ClientProtocolException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
@@ -103,7 +113,7 @@ public class DeployClient {
         }
     }
 
-    public boolean mapResourcesToComponents(Map<String, Map<String,String>> application2environment2baseResource) {
+    protected boolean mapResourcesToComponents(Map<String, Map<String,String>> application2environment2baseResource) {
         for (String applicationNameOrId : application2environment2baseResource.keySet()) {
             Map<String, String> environment2baseResource = application2environment2baseResource.get(applicationNameOrId);
             for (String environmentNameOrId : environment2baseResource.keySet()) {
@@ -120,12 +130,11 @@ public class DeployClient {
     }
 
     private void mapBaseResourceToEnvironment(String environmentNameOrId, String applicationNameOrId, String baseResourceIdOrPath) {
-        URIBuilder builder = new URIBuilder();
-        builder.setScheme("http").setHost("localhost").setPort(8080).setPath("/cli/environment/addBaseResource");
-
-        builder.setParameter("environment", environmentNameOrId);
-        builder.setParameter("application", applicationNameOrId);
-        builder.setParameter("resource", baseResourceIdOrPath);
+        URIBuilder builder = new URIBuilder(serverUrl);
+        builder.setPath("/cli/environment/addBaseResource")
+                .setParameter("environment", environmentNameOrId)
+                .setParameter("application", applicationNameOrId)
+                .setParameter("resource", baseResourceIdOrPath);
 
         HttpPut httpPut = null;
         try {
@@ -135,7 +144,11 @@ public class DeployClient {
         }
 
         try {
-            client.execute(httpPut);
+            HttpResponse response = client.execute(httpPut);
+            int statusCode = response.getStatusLine().getStatusCode();
+            if (statusCode > 299) {
+                throw new RuntimeException("failed to map resource to env. Status code: " + statusCode);
+            }
         } catch (ClientProtocolException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
@@ -143,13 +156,9 @@ public class DeployClient {
         }
     }
 
-    public String createRootResoruce(String name) {
-        URIBuilder builder = new URIBuilder();
-        builder.setScheme("http")
-                .setHost("localhost")
-                .setPort(8080)
-                .setPath("/cli/resource/create")
-                .setParameter("name", name);
+    protected String createRootResoruce(String name) {
+        URIBuilder builder = new URIBuilder(serverUrl);
+        builder.setPath("/cli/resource/create").setParameter("name", name);
 
         HttpPut httpPut = null;
         try {
