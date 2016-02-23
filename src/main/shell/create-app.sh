@@ -135,4 +135,4 @@ for ((j=1; j<=$x; j++)); do
 
 done;
 
-
+java -jar ucd-create-app.jar $DS_WEB_URL $DS_USERNAME $DS_PASSWORD $x $n
