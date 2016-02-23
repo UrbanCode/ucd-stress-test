@@ -1,0 +1,347 @@
+{
+    "name": "${COMPONENTNAME}",
+    "created": 1446665021395,
+    "componentType": "STANDARD",
+    "ignoreQualifiers": 0,
+    "importAutomatically": false,
+    "useVfs": true,
+    "active": true,
+    "deleted": false,
+    "defaultVersionType": "FULL",
+    "cleanupDaysToKeep": 0,
+    "cleanupCountToKeep": 0,
+    "componentTemplate": {
+        "securityResourceId": "b82285e8-6ff7-41e3-8307-4d5e309726d3",
+        "path": "componentTemplates\/22ad9912-e466-4224-95c0-475d583fcb1f",
+        "name": "Load",
+        "description": "",
+        "ignoreQualifiers": 0,
+        "componentType": "STANDARD",
+        "tags": [],
+        "active": true,
+        "envPropDefs": [],
+        "resPropDefs": [],
+        "propDefs": [],
+        "properties": [],
+        "processes": [{
+            "name": "Deploy",
+            "description": "",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": true,
+            "inventoryActionType": "ADD",
+            "status": "Active",
+            "configActionType": "ADD",
+            "active": true,
+            "path": "componentTemplates\/22ad9912-e466-4224-95c0-475d583fcb1f\/processes\/3ccfe05e-eb7c-419e-93cf-8f513c3bec7c",
+            "propDefs": [],
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "Clean All",
+                        "from": "sleep 10",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Download Artifacts",
+                        "from": "Clean",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "ac426517f35cca0f6aa4c70c780cf5",
+                        "from": "Clean All",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Unzip",
+                        "from": "Download Artifacts",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "ps -aux",
+                        "from": "df -h",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "df -h",
+                        "from": "Unzip",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Clean",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "sleep 10",
+                        "from": "ps -aux",
+                        "type": "SUCCESS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "ac426517f35cca0f6aa4c70c780cf5",
+                        "x": 29,
+                        "y": 710,
+                        "h": 50,
+                        "w": 90
+                    },
+                    {
+                        "name": "Clean",
+                        "x": -256,
+                        "y": 70,
+                        "h": 60,
+                        "w": 270
+                    },
+                    {
+                        "name": "df -h",
+                        "x": 34,
+                        "y": 310,
+                        "h": 60,
+                        "w": 140
+                    },
+                    {
+                        "name": "Unzip",
+                        "x": -121,
+                        "y": 220,
+                        "h": 60,
+                        "w": 150
+                    },
+                    {
+                        "name": "Clean All",
+                        "x": -190,
+                        "y": 600,
+                        "h": 60,
+                        "w": 270
+                    },
+                    {
+                        "name": "ps -aux",
+                        "x": -88.5,
+                        "y": 400,
+                        "h": 60,
+                        "w": 140
+                    },
+                    {
+                        "name": "Download Artifacts",
+                        "x": 64,
+                        "y": 140,
+                        "h": 60,
+                        "w": 220
+                    },
+                    {
+                        "name": "sleep 10",
+                        "x": 34,
+                        "y": 490,
+                        "h": 60,
+                        "w": 140
+                    }
+                ],
+                "type": "graph",
+                "name": "15649554-9767-4c5d-8874-7a9c1576d16e",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "ac426517f35cca0f6aa4c70c780cf5",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Download Artifacts",
+                        "pluginName": "IBM UrbanCode Deploy Versioned File Storage",
+                        "pluginVersion": 23,
+                        "properties": {
+                            "directoryOffset": ".",
+                            "artifactSetBaseDir": "",
+                            "fileIncludePatterns": "**\/*",
+                            "fileExcludePatterns": "",
+                            "syncMode": "true",
+                            "fullVerification": "true",
+                            "setFileExecuteBits": "false",
+                            "verifyFileIntegrity": "false",
+                            "versionId": "${p:version.id}",
+                            "serverUrl": "${p:server.url}",
+                            "compId": "${p:component.id}",
+                            "resId": "${p:resource.id}",
+                            "charset": "",
+                            "label": ""
+                        },
+                        "type": "plugin",
+                        "name": "Download Artifacts",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Delete Files and Directories",
+                        "pluginName": "File Utils",
+                        "pluginVersion": 41,
+                        "properties": {
+                            "baseDir": ".",
+                            "includes": "**\/*",
+                            "excludes": "",
+                            "followSymlinks": "false",
+                            "caseSensitive": "true"
+                        },
+                        "type": "plugin",
+                        "name": "Clean",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Unzip",
+                        "pluginName": "File Utils",
+                        "pluginVersion": 41,
+                        "properties": {
+                            "dir": ".\/expanded",
+                            "zip": "artifact.war",
+                            "includes": "**\/*",
+                            "excludes": "",
+                            "overwrite": "false"
+                        },
+                        "type": "plugin",
+                        "name": "Unzip",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Shell",
+                        "pluginName": "Shell",
+                        "pluginVersion": 6,
+                        "properties": {
+                            "directoryOffset": ".",
+                            "shellInterpreter": "",
+                            "scriptBody": "df -h > df.out;",
+                            "runAsDaemon": "false",
+                            "outputFile": ""
+                        },
+                        "type": "plugin",
+                        "name": "df -h",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Shell",
+                        "pluginName": "Shell",
+                        "pluginVersion": 6,
+                        "properties": {
+                            "directoryOffset": ".",
+                            "shellInterpreter": "",
+                            "scriptBody": "ps -aux > ps.out",
+                            "runAsDaemon": "false",
+                            "outputFile": ""
+                        },
+                        "type": "plugin",
+                        "name": "ps -aux",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Shell",
+                        "pluginName": "Shell",
+                        "pluginVersion": 6,
+                        "properties": {
+                            "directoryOffset": ".",
+                            "shellInterpreter": "",
+                            "scriptBody": "sleep 10;",
+                            "runAsDaemon": "false",
+                            "outputFile": ""
+                        },
+                        "type": "plugin",
+                        "name": "sleep 10",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Delete Files and Directories",
+                        "pluginName": "File Utils",
+                        "pluginVersion": 41,
+                        "properties": {
+                            "baseDir": ".",
+                            "includes": "**\/*",
+                            "excludes": "",
+                            "followSymlinks": "false",
+                            "caseSensitive": "true"
+                        },
+                        "type": "plugin",
+                        "name": "Clean All",
+                        "children": []
+                    }
+                ]
+            }
+        }],
+        "genericProcesses": [],
+        "teamMappings": []
+    },
+    "sourceConfigPluginName": "File System (Versioned)",
+    "envPropDefs": [],
+    "resPropDefs": [],
+    "versionPropDefs": [],
+    "propSheetGroup": {"propSheets": [
+        {
+            "name": "FileSystemVersionedComponentProperties",
+            "properties": [
+                {
+                    "name": "basePath",
+                    "value": "\/home\/spkavana\/artifacts",
+                    "description": "",
+                    "secure": false
+                },
+                {
+                    "name": "extensions",
+                    "description": "",
+                    "secure": false
+                },
+                {
+                    "name": "saveFileExecuteBits",
+                    "value": "false",
+                    "description": "",
+                    "secure": false
+                }
+            ]
+        },
+        {
+            "name": "custom",
+            "properties": []
+        },
+        {
+            "name": "template",
+            "properties": []
+        }
+    ]},
+    "processes": [],
+    "configTemplates": [],
+    "genericProcesses": [],
+    "teamMappings": [],
+    "tags": [{
+        "id": "e8c1599a-da33-456a-a4cb-184ec13daf82",
+        "name": "${TAG}",
+        "color": "#17AF4B",
+        "objectType": "Component"
+    }]
+}

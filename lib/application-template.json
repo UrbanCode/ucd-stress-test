@@ -1,0 +1,140 @@
+[{
+    "name": "${APPNAME}",
+    "enforceCompleteSnapshots": false,
+    "propSheet": {"properties": []},
+    "templatePropSheet": {
+        "name": "template",
+        "properties": []
+    },
+    "components": 
+	${COMPONENTS}
+    ,
+    "environments": [{
+        "name": "Load Test",
+        "color": "#00B2EF",
+        "requireApprovals": false,
+        "exemptProcesses": [],
+        "lockSnapshots": false,
+        "cleanupDaysToKeep": 0,
+        "cleanupCountToKeep": 0,
+        "order": 0,
+        "active": true,
+        "propSheet": {"properties": []},
+        "templatePropSheet": {
+            "name": "template",
+            "properties": []
+        },
+        "baseResources": [],
+        "componentPropSheets": 
+           ${COMPONENT_PROP_SHEETS}
+        ,
+        "versionConditions": [],
+        "teamMappings": []
+    }],
+    "statuses": [],
+    "processes": [{
+        "name": "Deploy",
+        "description": "",
+        "inventoryManagementType": "AUTOMATIC",
+        "offlineAgentHandling": "PRE_EXECUTION_CHECK",
+        "rootActivity": {
+            "edges": [
+                {
+                    "to": "bfeaac8aec6aafdcec777c45d7b2fe",
+                    "from": "4ca186c07c502eba9e9e5c07b5df1c",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "4ca186c07c502eba9e9e5c07b5df1c",
+                    "type": "ALWAYS",
+                    "value": ""
+                }
+            ],
+            "offsets": [
+                {
+                    "name": "bfeaac8aec6aafdcec777c45d7b2fe",
+                    "x": 80,
+                    "y": 410,
+                    "h": 50,
+                    "w": 90
+                },
+                {
+                    "name": "4ca186c07c502eba9e9e5c07b5df1c",
+                    "x": -43,
+                    "y": 120,
+                    "h": 60,
+                    "w": 230
+                }
+            ],
+            "type": "graph",
+            "name": "2070b135-d202-4f17-9a52-ea29200f8fe2",
+            "children": [
+                {
+                    "type": "finish",
+                    "name": "bfeaac8aec6aafdcec777c45d7b2fe",
+                    "children": []
+                },
+                {
+                    "name": "4ca186c07c502eba9e9e5c07b5df1c",
+                    "componentTag": {
+                        "id": "e8c1599a-da33-456a-a4cb-184ec13daf82",
+                        "name": "${TAG}",
+                        "color": "#17AF4B",
+                        "objectType": "Component"
+                    },
+                    "properties": [
+                        {
+                            "name": "activity.componentProcess.name",
+                            "value": "Deploy"
+                        },
+                        {
+                            "name": "maxIteration",
+                            "value": "-1"
+                        },
+                        {
+                            "name": "runOnlyOnFirst",
+                            "value": "false"
+                        },
+                        {
+                            "name": "failFast",
+                            "value": "false"
+                        }
+                    ],
+                    "type": "multiComponentEnvironmentIterator",
+                    "children": [{
+                        "properties": [{
+                            "name": "runOnlyOnFirst",
+                            "value": "false"
+                        }],
+                        "type": "componentEnvironmentIterator",
+                        "name": "c5bb4b56b13bc73abfdd847ff73028",
+                        "children": [{
+                            "status": "Active",
+                            "type": "inventoryVersionDiff",
+                            "name": "b03a7fea-0170-45b0-a0bf-87ad5eb90b1e",
+                            "children": [{
+                                "componentProcessName": "Deploy",
+                                "allowFailure": false,
+                                "properties": {"activity.componentProcess.name": "Deploy"},
+                                "type": "componentProcess",
+                                "name": "Install",
+                                "children": []
+                            }]
+                        }]
+                    }]
+                }
+            ]
+        },
+        "propDefs": [],
+        "versionPresets": []
+    }],
+    "genericProcesses": [],
+    "teamMappings": [],
+    "tags": [{
+        "id": "d16e99fe-27f8-461f-a54a-c2fc64020528",
+        "name": "${TAG}",
+        "color": "#17AF4B",
+        "objectType": "Application"
+    }]
+}]
