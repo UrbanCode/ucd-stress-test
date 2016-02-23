@@ -24,6 +24,14 @@
 
     <!-- MAIN -->
     <dependency>
+      <ah-project name="udclient" workflow="build workflow [master]"/>
+      <criteria status="success"/>
+      <delivery artifact-set="Library">
+        <directory>lib</directory>
+      </delivery>
+    </dependency>
+
+    <dependency>
       <cs-project name="Apache-log4j"/>
       <criteria stamp="1.2.*" />
       <delivery artifact-set="Default">
