@@ -55,6 +55,7 @@
 
     <property name="src.dir" location="src" />
     <property name="src.main.java.dir" location="${src.dir}/main/java" />
+    <property name="src.main.shell.dir" location="${src.dir}/main/shell"/>
     <property name="src.test.java.dir" location="${src.dir}/test/java" />
 
     <property name="lib.dir" location="lib" />
@@ -225,7 +226,16 @@
     <!-- ==================================================================
          DIST
          ================================================================== -->
-    <target name="dist-main" depends="jar-main"/>
+    <target name="dist-main" depends="jar-main">
+        <zip destfile="${dist.dir}/ucd-create-app.zip">
+            <zipfileset dir="${src.main.shell.dir}"/>
+            <zipfileset dir="${lib.dir}">
+                <include name="udclient.jar"/>
+            </zipfileset>
+            <zipfileset file="${dist.dir}/${project}.jar"/>
+            <zipfileset file="README.txt"/>
+        </zip>    
+    </target>
 
     <!-- ==================================================================
          TEST

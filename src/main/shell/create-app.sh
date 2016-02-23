@@ -106,11 +106,11 @@ for ((j=1; j<=$x; j++)); do
 	for ((i=1; i<=$n; i++)); do
 		#create version	
 		echo "Create version : $n-Load-$j-Component-$i"
-		java -jar bin/udclient.jar createVersion -name 1.0 -component $n-Load-$j-Component-$i
+		java -jar udclient.jar createVersion -name 1.0 -component $n-Load-$j-Component-$i
 	
 		#import artifacts
 		echo "Import artifacts : $n-Load-$j-Component-$i"
-		java -jar bin/udclient.jar addVersionFiles -version 1.0 -base lib/artifact/1.0 -component $n-Load-$j-Component-$i
+		java -jar udclient.jar addVersionFiles -version 1.0 -base lib/artifact/1.0 -component $n-Load-$j-Component-$i
 		
 	done;
 
@@ -128,7 +128,7 @@ for ((j=1; j<=$x; j++)); do
 	echo \} >> tmp/create-snapshot.json
 
     echo "create snapshot" `date`;
-	java -jar bin/udclient.jar createSnapshot tmp/create-snapshot.json
+	java -jar udclient.jar createSnapshot tmp/create-snapshot.json
     echo "finish snapshot" `date`;
 
 	rm -rf tmp
