@@ -76,7 +76,7 @@ public class ResourceCreationAnMappingUtil {
 
         Map<String, Map<String, String>> application2environment2baseResource = new HashMap<String, Map<String,String>>();
         for (int appNum = 0; appNum < applicationCount; appNum++) {
-            String appName = String.format(applicationNameFormat, applicationCount, appNum + 1);
+            String appName = String.format(applicationNameFormat, componentCount, appNum + 1);
             JSONObject appResource = createResource(appName, root, null, null);
             String appResourcePath = appResource.getString("path");
 
