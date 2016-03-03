@@ -11,20 +11,21 @@ import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
 public class BatchResourceCreationTestAllChildrenOfOneParent {
-    static private String serverUrl = "https://perf2.uclab.ibm.com:8443";
-    static private String username = "admin";
-    static private String password = "admin";
 
     static public void main(String[] args) throws Exception {
+        if (args.length != 1) {
+            System.out.println("arguments: <serverUrl>");
+            System.exit(1);
+        }
         List<String> results = new ArrayList<String>();
         String res = "";
         for (int i = 1; i < 10; i ++) {
-            res = new BatchResourceCreationTestAllChildrenOfOneParent(100 * i).batchCreateResourcesOneParentManyChildren();
+            res = new BatchResourceCreationTestAllChildrenOfOneParent(args[0], "admin", "admin", 100 * i).batchCreateResourcesOneParentManyChildren();
             results.add(res);
             System.out.println(res);
         }
         for (int i = 1; i < 6; i ++) {
-            res = new BatchResourceCreationTestAllChildrenOfOneParent(1000 * i).batchCreateResourcesOneParentManyChildren();
+            res = new BatchResourceCreationTestAllChildrenOfOneParent(args[0], "admin", "admin", 1000 * i).batchCreateResourcesOneParentManyChildren();
             results.add(res);
             System.out.println(res);
         }
@@ -34,11 +35,14 @@ public class BatchResourceCreationTestAllChildrenOfOneParent {
         }
     }
 
-    public BatchResourceCreationTestAllChildrenOfOneParent(int resourceCount) {
+    public BatchResourceCreationTestAllChildrenOfOneParent(String serverUrl, String username, String password, int resourceCount) {
         this.createdResources = 0;
         this.resourceCount = resourceCount;
         this.rootResourceName = String.format("%6d-resource-root-%d", resourceCount, System.currentTimeMillis());
         this.rootResourcePath = String.format("/%s", rootResourceName);
+        this.username = username;
+        this.password = password;
+        this.serverUrl = serverUrl;
     }
 
     public String batchCreateResourcesOneParentManyChildren() {
@@ -81,6 +85,9 @@ public class BatchResourceCreationTestAllChildrenOfOneParent {
         return resource;
     }
 
+    private String serverUrl;
+    private String username;
+    private String password;
     private String rootResourceName;
     private String rootResourcePath;
     private int createdResources;
