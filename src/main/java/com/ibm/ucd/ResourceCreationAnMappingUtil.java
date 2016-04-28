@@ -49,7 +49,7 @@ public class ResourceCreationAnMappingUtil {
         this.componentCount = componentCount;
         this.applicationNameFormat = "%d-Load-%d";
         this.componentNameFormat = "%s-Component-%d";
-        this.agentNameFormat = "perf-agent-%06d";
+        this.agentNameFormat = System.getProperty("agent.pattern", "perf-agent-%06d");
         this.rootResourceName = "ROOT-" + System.currentTimeMillis();
         this.rootResourcePath = "/" + rootResourceName;
 
