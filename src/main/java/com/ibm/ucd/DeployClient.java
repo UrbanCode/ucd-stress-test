@@ -12,6 +12,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.utils.URIBuilder;
@@ -94,9 +95,7 @@ public class DeployClient {
         StringEntity entity;
         entity = new StringEntity(body, Charset.forName("UTF-8"));
         put.setEntity(entity);
-
         try {
-            client.execute(put);
             HttpResponse response = client.execute(put);
             String responseText = EntityUtils.toString(response.getEntity());
             if (responseText.length() > 500) {
@@ -105,6 +104,68 @@ public class DeployClient {
             int statusCode = response.getStatusLine().getStatusCode();
             if (response.getStatusLine().getStatusCode() != 200) {
                 throw new RuntimeException("Batch Resource creation failed with statuc code" + statusCode);
+            }
+        } catch (ClientProtocolException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    protected void moveResource(String origPath, String newParentPath) throws URISyntaxException {
+        URIBuilder builder = new URIBuilder(serverUrl);
+        builder.setPath("/cli/resource/move")
+            .setParameter("resource", origPath)
+            .setParameter("parent", newParentPath);
+
+        HttpPut put = new HttpPut(builder.build());
+
+        try {
+            HttpResponse response = client.execute(put);
+            int statusCode = response.getStatusLine().getStatusCode();
+            if (statusCode > 299) {
+                throw new RuntimeException("Resource move failed with status code: " + statusCode);
+            }
+        } catch (ClientProtocolException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    protected void deleteResource(String path) throws URISyntaxException {
+        URIBuilder builder = new URIBuilder(serverUrl);
+        builder.setPath("/cli/resource/deleteResource")
+            .setParameter("resource", path);
+
+        HttpDelete put = new HttpDelete(builder.build());
+
+        try {
+            HttpResponse response = client.execute(put);
+            int statusCode = response.getStatusLine().getStatusCode();
+            if (statusCode > 299) {
+                throw new RuntimeException("Resource delete failed with status code: " + statusCode);
+            }
+        } catch (ClientProtocolException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    protected void copyResource(String origPath, String newParentPath) throws URISyntaxException {
+        URIBuilder builder = new URIBuilder(serverUrl);
+        builder.setPath("/cli/resource/copy")
+            .setParameter("resource", origPath)
+            .setParameter("parent", newParentPath);
+
+        HttpPut put = new HttpPut(builder.build());
+
+        try {
+            HttpResponse response = client.execute(put);
+            int statusCode = response.getStatusLine().getStatusCode();
+            if (statusCode > 299) {
+                throw new RuntimeException("Resource copy failed with status code: " + statusCode);
             }
         } catch (ClientProtocolException e) {
             throw new RuntimeException(e);
