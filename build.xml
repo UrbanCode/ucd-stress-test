@@ -1,4 +1,4 @@
-<project name="ucd-create-app" default="dist" xmlns:codestation="antlib:com.urbancode.codestation2.client">
+<project name="ucd-stress-test" default="dist" xmlns:codestation="antlib:com.urbancode.codestation2.client">
 
     <defaultexcludes add="**/.ahs.dig" />
     <defaultexcludes add="**/.ahs.manifest" />
@@ -30,7 +30,7 @@
     </condition>
 
     <!-- ==================================================================
-         PROJECT CONFIGURATION 
+         PROJECT CONFIGURATION
          ================================================================== -->
     <property name="project" value="${ant.project.name}"/>
     <property name="build.life.id" value="${env.AH_BUILD_LIFE_ID}"/>
@@ -48,7 +48,7 @@
     <property name="build.main.api.dir" location="${build.main.dir}/api"/>
 
     <property name="build.instrumented.classes.dir" location="${build.main.dir}/instrumented" />
-    
+
     <property name="build.test.dir" location="${build.dir}/test" />
     <property name="build.test.data.dir" location="${build.test.dir}/data" />
     <property name="build.test.classes.dir" location="${build.test.dir}/classes" />
@@ -97,7 +97,7 @@
 
             includeantruntime="false"/>
     </presetdef>
-    
+
     <!-- ==================================================================
          PATHS
          ================================================================== -->
@@ -140,7 +140,7 @@
         <antcall target="resolve"/>
     </target>
 
-    <target name="resolve" unless="resolve.no" 
+    <target name="resolve" unless="resolve.no"
             description="Resolve all dependencies">
         <mkdir dir="${lib.dir}"/>
         <mkdir dir="${lib.test.dir}"/>
@@ -189,7 +189,7 @@
                 <attribute name="Implementation-Vendor" value="Urbancode"/>
                 <attribute name="Implementation-Title" value="${project}"/>
                 <attribute name="Implementation-Version" value="${version}"/>
-                <attribute name="Main-Class" value="com.ibm.ucd.ResourceCreationAnMappingUtil"/>
+                <attribute name="Main-Class" value="com.ibm.ucd.ResourceCreationAndMappingUtil"/>
             </manifest>
 
             <fileset dir="${build.main.classes.dir}"/>
@@ -201,8 +201,7 @@
     <!-- ==================================================================
          JAVADOC
          ================================================================== -->
-    <target name="javadoc-main"
-            description="Generate javadocs">
+    <target name="javadoc-main">
         <mkdir dir="${build.main.api.dir}"/>
         <mkdir dir="${dist.dir}" />
 
@@ -227,14 +226,14 @@
          DIST
          ================================================================== -->
     <target name="dist-main" depends="jar-main">
-        <zip destfile="${dist.dir}/ucd-create-app.zip">
+        <zip destfile="${dist.dir}/${project}.zip">
             <zipfileset dir="${src.main.shell.dir}"/>
             <zipfileset dir="${lib.dir}">
                 <include name="udclient.jar"/>
             </zipfileset>
             <zipfileset file="${dist.dir}/${project}.jar"/>
             <zipfileset file="README.txt"/>
-        </zip>    
+        </zip>
     </target>
 
     <!-- ==================================================================
@@ -264,7 +263,7 @@
         </junitreport>
 
         <antcall target="cobertura-reports"/>
-        
+
         <fail if="junit.failed"/>
     </target>
 
@@ -272,7 +271,7 @@
         <mkdir dir="${reports.junit.data.dir}"/>
         <mkdir dir="${reports.junit.html.dir}"/>
 
-        <junit 
+        <junit
             printsummary="withOutAndErr"
             haltonfailure="true"
             fork="true"
@@ -293,7 +292,7 @@
     <target name="cobertura-init-tasks">
         <taskdef classpathref="classpath.test" resource="tasks.properties"/>
     </target>
-    
+
     <target name="cobertura-instrument" depends="jar, cobertura-init-tasks" if="use.cobertura">
         <delete file="${build.dir}/.cobertura.ser"/>
         <delete dir="${build.instrumented.classes.dir}"/>
@@ -348,4 +347,3 @@
         </exec>
     </target>
 </project>
-

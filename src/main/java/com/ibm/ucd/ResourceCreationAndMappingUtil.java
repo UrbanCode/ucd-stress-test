@@ -9,7 +9,7 @@ import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
-public class ResourceCreationAnMappingUtil {
+public class ResourceCreationAndMappingUtil {
     final private int applicationCount;
     final private int componentCount;
     final private String rootResourceName;
@@ -35,10 +35,10 @@ public class ResourceCreationAnMappingUtil {
         int appCount = Integer.parseInt(args[3]);
         int componentCount = Integer.parseInt(args[4]);
 
-        new ResourceCreationAnMappingUtil(serverUrl, username, password, appCount, componentCount).mapResources();
+        new ResourceCreationAndMappingUtil(serverUrl, username, password, appCount, componentCount).mapResources();
     }
 
-    public ResourceCreationAnMappingUtil(
+    public ResourceCreationAndMappingUtil(
             URI serverUrl,
             String username,
             String password,
@@ -47,8 +47,8 @@ public class ResourceCreationAnMappingUtil {
     {
         this.applicationCount = applicationCount;
         this.componentCount = componentCount;
-        this.applicationNameFormat = "%d-Load-%d";
-        this.componentNameFormat = "%s-Component-%d";
+        this.applicationNameFormat = "LOAD%d-APP%d";
+        this.componentNameFormat = "%s-COMP%d";
         this.agentNameFormat = System.getProperty("agent.pattern", "agent%06d");
         this.rootResourceName = "ROOT-" + System.currentTimeMillis();
         this.rootResourcePath = "/" + rootResourceName;

@@ -103,7 +103,7 @@ public class DeployClient {
             }
             int statusCode = response.getStatusLine().getStatusCode();
             if (response.getStatusLine().getStatusCode() != 200) {
-                throw new RuntimeException("Batch Resource creation failed with statuc code" + statusCode);
+                throw new RuntimeException("Batch resource creation failed with status code: " + statusCode);
             }
         } catch (ClientProtocolException e) {
             throw new RuntimeException(e);
@@ -111,7 +111,7 @@ public class DeployClient {
             throw new RuntimeException(e);
         }
     }
-    
+
     protected void moveResource(String origPath, String newParentPath) throws URISyntaxException {
         URIBuilder builder = new URIBuilder(serverUrl);
         builder.setPath("/cli/resource/move")
@@ -152,7 +152,7 @@ public class DeployClient {
             throw new RuntimeException(e);
         }
     }
-    
+
     protected void copyResource(String origPath, String newParentPath) throws URISyntaxException {
         URIBuilder builder = new URIBuilder(serverUrl);
         builder.setPath("/cli/resource/copy")
@@ -208,7 +208,7 @@ public class DeployClient {
             HttpResponse response = client.execute(httpPut);
             int statusCode = response.getStatusLine().getStatusCode();
             if (statusCode > 299) {
-                throw new RuntimeException("failed to map resource to env. Status code: " + statusCode);
+                throw new RuntimeException("Failed to map resource to environment. Status code: " + statusCode);
             }
         } catch (ClientProtocolException e) {
             throw new RuntimeException(e);
@@ -241,7 +241,7 @@ public class DeployClient {
 
         int statusCode = response.getStatusLine().getStatusCode();
         if (statusCode != 200) {
-            throw new RuntimeException("Http status code: " + statusCode);
+            throw new RuntimeException("HTTP status code: " + statusCode);
         }
 
         String resultString;
