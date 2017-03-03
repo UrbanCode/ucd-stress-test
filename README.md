@@ -28,7 +28,7 @@ log4j.jar
 HttpComponents-Util.jar
 udclient.jar
 ```
-Download the libs from Maven [here for log4j](https://mvnrepository.com/artifact/log4j/log4j) and [here for the others](https://public.dhe.ibm.com/software/products/UrbanCode/maven2/).
+Download the libs from Maven [here for log4j](https://mvnrepository.com/artifact/log4j/log4j) and [here for the others](https://public.dhe.ibm.com/software/products/UrbanCode/maven2/com/ibm/urbancode/commons/).
 
 ####To build:
 ```
