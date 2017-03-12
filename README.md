@@ -13,7 +13,7 @@ There are two main parts to this utility:
 
 There is risk of polluting your UrbanCode Deploy server since the utility creates applications, components, resources, and tags so it may be worth setting up an ephemeral implementation for testing.
 
-<p align="center">![Load Components](components.png "Load Components")![Load Applications](applications.png "Load Applications")</p>
+<p align="center"><img src="components.png"><img src="applications.png"></p>
 
 ####About Agents
 The Java program looks for agents with a specific naming convention. By default, that pattern is `agentn` where *n* is a six-digit integer representing the agent number (i.e. 000001). The Java program creates a resource structure where each component is mapped to a unique agent. This means there is a 1:1 relationship between total number of components generated and the number of agents required for the utility to run successfully.
