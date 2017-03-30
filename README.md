@@ -15,7 +15,7 @@ There is risk of polluting your UrbanCode Deploy server since the utility create
 
 <p align="center"><img src="components.png"><img src="applications.png"></p>
 
-#### About Agents
+#### About agents
 The Java program looks for agents with a specific naming convention. By default, that pattern is `agentn` where *n* is a six-digit integer representing the agent number (i.e. 000001). The Java program creates a resource structure where each component is mapped to a unique agent. This means there is a 1:1 relationship between total number of components generated and the number of agents required for the utility to run successfully.
 
 You can start several agents on a single host using Docker and [stackinabox](http://stackinabox.io). For example:
@@ -33,12 +33,12 @@ udclient.jar
 ```
 Download the libs from Maven [here for log4j](https://mvnrepository.com/artifact/log4j/log4j) and [here for the others](https://public.dhe.ibm.com/software/products/UrbanCode/maven2/com/ibm/urbancode/commons/).
 
-#### Build the ZIP archive
+#### Build the archive
 ```
 ant dist-main
 ```
 
-#### Run the Utility
+#### Run the utility
 ```
 chmod +x create-apps.sh
 ./create-apps.sh
