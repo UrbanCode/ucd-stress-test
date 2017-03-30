@@ -33,12 +33,12 @@ udclient.jar
 ```
 Download the libs from Maven [here for log4j](https://mvnrepository.com/artifact/log4j/log4j) and [here for the others](https://public.dhe.ibm.com/software/products/UrbanCode/maven2/com/ibm/urbancode/commons/).
 
-#### To build the ZIP archive
+#### Build the ZIP archive
 ```
 ant dist-main
 ```
 
-#### To run (after ZIP extraction)
+#### Run the Utility
 ```
 chmod +x create-apps.sh
 ./create-apps.sh
