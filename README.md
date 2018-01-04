@@ -25,7 +25,7 @@ docker run -d -e DEPLOY_SERVER_URL=https://<HOSTNAME>:<PORT> -e AGENT_NAME=agent
 ![Agents](agents.png "Agents")
 
 #### Required JARs
-These libraries must be copied over from an UrbanCode Deploy installation:
+These libraries must be copied into `lib/`:
 ```
 log4j.jar
 HttpComponents-Util.jar
