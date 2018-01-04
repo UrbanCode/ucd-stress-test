@@ -24,9 +24,10 @@
         </and>
     </condition>
     <condition property="git" value="git">
-        <not>
+        <or>
+	        <os family="unix" />
             <os family="windows" />
-        </not>
+        </or>
     </condition>
 
     <!-- ==================================================================
